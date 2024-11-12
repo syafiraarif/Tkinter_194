@@ -1,0 +1,47 @@
+import tkinter as tk
+from tkinter import messagebox
+
+#Fungsi untuk memvalidasi input dan menampilkan hasil prediksi
+def hasilprediksi():
+    try:
+        for entry in entries:
+            nilai = int(entry.get())
+            if not (0<= nilai <= 100):
+                raise ValueError("Nilai harus antara 0 dan 100.")
+        hasil_label.config(text ="prediksi prodi: Teknologi Informasi")
+    except ValueError as ve:
+        messagebox.showerror("input error", "pastikan semua input adalah angka antara 0 sampai 100 ")
+
+
+root = tk.Tk()
+root.title("aplikasi prediksi prodi pilihan")
+root.geometry("500x600")
+root.configure(bg="#f0f0f0")
+
+#label judul
+judul_label = tk.Label(root, text ="aplikasi prediksi prodi pilihan", font =("arial", 16))
+judul_label.pack(pady = 20)
+
+
+#frame untuk input nilai mata pelajaran
+frame_input = tk.Frame(root, bg="#f0f0f0")
+frame_input.pack(pady =10)
+
+
+entries = []
+for i in range(10):
+    label = tk.Label(frame_input, text =f"nilai mata pelajaran {i+1}:", font=("Arial", 12))
+    label.grid(row =i, column=0, padx=10, pady=5, sticky="e")
+    entry = tk.Entry(frame_input, width=10, font=("Arial", 12))
+    entry.grid(row=i, column=1, padx=10, pady=5)
+    entries.append(entry)
+
+
+prediksi_button = tk.Button(root, text = "hasil prediksi", command= hasilprediksi, font=("arial", 12))
+prediksi_button.pack(pady=30)
+
+hasil_label =tk.Label(root, text="", font =("arial", 14, "italic", "bold"), fg="green", bg="#f0f0f0")
+hasil_label.pack(pady= 20)
+
+
+root.mainloop()
